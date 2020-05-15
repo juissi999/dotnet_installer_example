@@ -6,7 +6,16 @@
         xmlns:local="clr-namespace:dotnet_installer_example"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+    <Border Padding="20">
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Back" />
+            <Button Grid.Column="1" Content="Forward" />
+        </Grid>
+    </StackPanel>
+    </Border>
 </Window>
