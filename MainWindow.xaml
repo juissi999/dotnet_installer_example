@@ -7,15 +7,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Border Padding="20">
-    <StackPanel>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Back" />
-            <Button Grid.Column="1" Content="Forward" />
+        <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="Back" Click="Button_Back_Click"/>
+                    <Button Grid.Column="1" Content="Forward" Click="Button_Forward_Click" />
+                </Grid>
+            </StackPanel>
+            <Frame x:Name="Main" NavigationUIVisibility="Hidden"/>
         </Grid>
-    </StackPanel>
     </Border>
 </Window>
