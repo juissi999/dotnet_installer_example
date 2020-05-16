@@ -45,19 +45,11 @@ namespace dotnet_installer_example
 
         private void Button_Back_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = null;
             currentPage -= 1;
             updateView();
         }
         private void Button_Forward_Click(object sender, RoutedEventArgs e)
         {
-            // when user presses the button on the last page, close application
-            if (currentPage == 5)
-            {
-                this.Close();
-            }
-
-            Main.Content = null;
             currentPage += 1;
             updateView();
         }
@@ -91,6 +83,19 @@ namespace dotnet_installer_example
             } else if (currentPage == 3)
             {
                 Main.Content = new Page3(this.getInstallDir());
+            }
+            else if (currentPage == 4)
+            {
+                Main.Content = new Page4();
+            }
+            else if (currentPage == 5)
+            {
+                Main.Content = new Page5();
+            } 
+            else if (currentPage == 6)
+            {
+                // when user presses the button on the last page, close application
+                this.Close();
             }
         }
 

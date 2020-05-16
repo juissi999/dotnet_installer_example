@@ -9,6 +9,6 @@
       Title="Page5">
 
     <Grid>
-        
+        <TextBlock Text="Installation completed!" HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>
 </Page>
