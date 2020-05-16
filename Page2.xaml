@@ -9,6 +9,10 @@
       Title="Page2">
 
     <Grid>
-        <TextBlock Text="Select installation folder." HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <TextBlock Text="Select installation folder:" VerticalAlignment="Top" />
+        <StackPanel VerticalAlignment="Top" Orientation="Horizontal" Margin="0 30 0 0">
+            <TextBox  Width="500"  Height="25" Margin="5 0 10 0"/>
+            <Button Content="Select folder" />
+        </StackPanel>
     </Grid>
 </Page>
