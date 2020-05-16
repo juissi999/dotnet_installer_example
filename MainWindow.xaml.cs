@@ -51,6 +51,12 @@ namespace dotnet_installer_example
         }
         private void Button_Forward_Click(object sender, RoutedEventArgs e)
         {
+            // when user presses the button on the last page, close application
+            if (currentPage == 5)
+            {
+                this.Close();
+            }
+
             Main.Content = null;
             currentPage += 1;
             updateView();
@@ -59,14 +65,23 @@ namespace dotnet_installer_example
         private void updateView()
         {
             // update navigation controls
-            if (currentPage == 1)
+
+            // backButton, dont display on some pages
+            if (currentPage == 1 || currentPage > 3)
             {
                 BackButton.Visibility = Visibility.Hidden;
             } else
             {
                 BackButton.Visibility = Visibility.Visible;
             }
-                // set page
+
+            // forwardButton, set to indicate quit on last page
+            if (currentPage == 5)
+            {
+                ForwardButton.Content = "Quit";
+            }
+
+            // set page
             if (currentPage == 1)
             {
                 Main.Content = new Page1();
