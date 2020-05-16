@@ -27,7 +27,7 @@ namespace dotnet_installer_example
         public MainWindow()
         {
             // set private variable for page
-            currentPage = 0;
+            currentPage = 1;
             setInstallDir(System.IO.Directory.GetCurrentDirectory());
             InitializeComponent();
             updateView();
@@ -46,20 +46,20 @@ namespace dotnet_installer_example
         private void Button_Back_Click(object sender, RoutedEventArgs e)
         {
             Main.Content = null;
-            currentPage = 0;
+            currentPage -= 1;
             updateView();
         }
         private void Button_Forward_Click(object sender, RoutedEventArgs e)
         {
             Main.Content = null;
-            currentPage = 1;
+            currentPage += 1;
             updateView();
         }
 
         private void updateView()
         {
             // update navigation controls
-            if (currentPage == 0)
+            if (currentPage == 1)
             {
                 BackButton.Visibility = Visibility.Hidden;
             } else
@@ -67,12 +67,15 @@ namespace dotnet_installer_example
                 BackButton.Visibility = Visibility.Visible;
             }
                 // set page
-                if (currentPage == 0)
+            if (currentPage == 1)
             {
                 Main.Content = new Page1();
-            } else if (currentPage == 1)
+            } else if (currentPage == 2)
             {
                 Main.Content = new Page2(this);
+            } else if (currentPage == 3)
+            {
+                Main.Content = new Page3(this.getInstallDir());
             }
         }
 
