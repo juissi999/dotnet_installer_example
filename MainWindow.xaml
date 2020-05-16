@@ -14,8 +14,8 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Content="Back" Click="Button_Back_Click" Margin="40 0 40 0" />
-                    <Button Grid.Column="1" Content="Forward" Click="Button_Forward_Click" Margin="40 0 40 0" />
+                    <Button x:Name="BackButton" Grid.Column="0" Content="Back" Click="Button_Back_Click" Margin="40 0 40 0" />
+                    <Button x:Name="ForwardButton" Grid.Column="1" Content="Forward" Click="Button_Forward_Click" Margin="40 0 40 0" />
                 </Grid>
             </StackPanel>
             <Frame x:Name="Main" NavigationUIVisibility="Hidden"/>

@@ -46,9 +46,21 @@ namespace dotnet_installer_example
 
         private void updateView()
         {
+            // update navigation controls
             if (currentPage == 0)
             {
+                BackButton.Visibility = Visibility.Hidden;
+            } else
+            {
+                BackButton.Visibility = Visibility.Visible;
+            }
+                // set page
+                if (currentPage == 0)
+            {
                 Main.Content = new Page1();
+            } else if (currentPage == 1)
+            {
+                Main.Content = new Page2();
             }
         }
 
