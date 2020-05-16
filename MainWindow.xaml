@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Border Padding="20">
         <Grid>
-            <Frame x:Name="Main" NavigationUIVisibility="Hidden" Margin="0,0,0,30"/>
+            <Frame x:Name="Main" NavigationUIVisibility="Hidden" Margin="0,0,0,30" ContentRendered="Main_ContentRendered"/>
             <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" Height="30" HorizontalAlignment="Right">
                 <Button x:Name="BackButton" Content="Back" Click="Button_Back_Click" MinWidth="100" />
                 <Button x:Name="ForwardButton" Content="Forward" Click="Button_Forward_Click" MinWidth="100" Margin="20,0,0,0" />

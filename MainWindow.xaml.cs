@@ -26,6 +26,7 @@ namespace dotnet_installer_example
         int currentPage;
         string installDirectory;
         string workingDirectory;
+        Page4 loaderStatusPage;
 
         public MainWindow()
         {
@@ -38,6 +39,7 @@ namespace dotnet_installer_example
             InitializeComponent();
             updateView();
         }
+
 
         public void moveFiles(Page4 loaderPage)
         {
@@ -71,7 +73,7 @@ namespace dotnet_installer_example
             }
 
             // move to next page
-            currentPage +=1;
+            currentPage += 1;
             updateView();
         }
 
@@ -129,9 +131,8 @@ namespace dotnet_installer_example
             }
             else if (currentPage == 4)
             {
-                Page4 loaderPage = new Page4();
-                Main.Content = loaderPage;
-                moveFiles(loaderPage);
+                loaderStatusPage = new Page4();
+                Main.Content = loaderStatusPage;
             }
             else if (currentPage == 5)
             {
@@ -144,5 +145,13 @@ namespace dotnet_installer_example
             }
         }
 
+        private void Main_ContentRendered(object sender, EventArgs e)
+        {
+            //MessageBox.Show("ContentRendered");
+            if (currentPage == 4)
+            {
+                moveFiles(loaderStatusPage);
+            }
+        }
     }
 }
