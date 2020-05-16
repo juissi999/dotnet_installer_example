@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,18 +21,35 @@ namespace dotnet_installer_example
     /// </summary>
     public partial class MainWindow : Window
     {
+        int currentPage;
+
         public MainWindow()
         {
+            // set private variable for page
+            currentPage = 0;
             InitializeComponent();
+            updateView();
         }
 
         private void Button_Back_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new Page1();
+            Main.Content = null;
+            currentPage = 0;
+            updateView();
         }
         private void Button_Forward_Click(object sender, RoutedEventArgs e)
         {
             Main.Content = null;
+            currentPage = 1;
+            updateView();
+        }
+
+        private void updateView()
+        {
+            if (currentPage == 0)
+            {
+                Main.Content = new Page1();
+            }
         }
 
     }
