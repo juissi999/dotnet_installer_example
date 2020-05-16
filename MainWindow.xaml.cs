@@ -41,25 +41,38 @@ namespace dotnet_installer_example
 
         public void moveFiles(Page4 loaderPage)
         {
+            // resolve the path to source directory
             string sourceDir = System.IO.Path.Combine(workingDirectory, "Files");
 
-            // create target directory
-            // System.IO.Directory.CreateDirectory(installDirectory);
-
             // get source directory files
-            string[] files = System.IO.Directory.GetFiles(sourceDir, "*.*", SearchOption.AllDirectories);
+            string[] files = System.IO.Directory.GetFiles(sourceDir, "*.*",
+                SearchOption.AllDirectories);
 
             // loop through files
             for (int i = 0; i < files.Length; i++)
             {
-                // copy file
-                // System.IO.File.Copy(sourceDir, destFile, false);
+                // define relative path of the file in source directory
+                // (take away the beginning of path)
+                string relativeFilePath = files[i].Substring(sourceDir.Length + 1);
+
+                // create path to the destination file
+                string destinationFile = System.IO.Path.Combine(installDirectory,
+                    relativeFilePath);
+
+                // create the directory/subdirectory, or if it exists, do nothing
+                (new FileInfo(destinationFile)).Directory.Create();
+
+                // copy one file
+                System.IO.File.Copy(files[i], destinationFile, false);
 
                 // update loaderPage status
                 loaderPage.setStatus(i, files.Length);
+                loaderPage.setCopiedFilename(destinationFile);
             }
 
             // move to next page
+            currentPage +=1;
+            updateView();
         }
 
         public void setInstallDir(string newDir)

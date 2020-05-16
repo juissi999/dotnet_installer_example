@@ -23,9 +23,14 @@ namespace dotnet_installer_example
             InitializeComponent();
         }
 
+        public void setCopiedFilename(string fname)
+        {
+            statusText.Text = "Copying " + fname + "...";
+        }
+
         public void setStatus(int currentFile, int fileCount)
         {
-            statusText.Text = (currentFile+1).ToString() + "/" + fileCount.ToString();
+            //statusText.Text = (currentFile+1).ToString() + "/" + fileCount.ToString();
         }
     }
 }
