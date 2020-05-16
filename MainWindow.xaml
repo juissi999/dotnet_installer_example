@@ -8,17 +8,11 @@
         Title="MainWindow" Height="450" Width="800">
     <Border Padding="20">
         <Grid>
-        <StackPanel VerticalAlignment="Bottom">
-                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Button x:Name="BackButton" Grid.Column="0" Content="Back" Click="Button_Back_Click" Margin="40 0 40 0" />
-                    <Button x:Name="ForwardButton" Grid.Column="1" Content="Forward" Click="Button_Forward_Click" Margin="40 0 40 0" />
-                </Grid>
+            <Frame x:Name="Main" NavigationUIVisibility="Hidden" Margin="0,0,0,30"/>
+            <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" Height="30" HorizontalAlignment="Right">
+                <Button x:Name="BackButton" Content="Back" Click="Button_Back_Click" MinWidth="100" />
+                <Button x:Name="ForwardButton" Content="Forward" Click="Button_Forward_Click" MinWidth="100" Margin="20,0,0,0" />
             </StackPanel>
-            <Frame x:Name="Main" NavigationUIVisibility="Hidden"/>
         </Grid>
     </Border>
 </Window>
