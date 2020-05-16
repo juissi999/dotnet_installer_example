@@ -9,6 +9,6 @@
       Title="Page4">
 
     <Grid>
-        
+        <TextBlock x:Name="statusText" Text="aaa" HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>
 </Page>

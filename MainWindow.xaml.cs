@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -23,14 +25,41 @@ namespace dotnet_installer_example
     {
         int currentPage;
         string installDirectory;
+        string workingDirectory;
 
         public MainWindow()
         {
             // set private variable for page
             currentPage = 1;
-            setInstallDir(System.IO.Directory.GetCurrentDirectory());
+
+            workingDirectory = System.IO.Directory.GetCurrentDirectory();
+
+            setInstallDir(workingDirectory);
             InitializeComponent();
             updateView();
+        }
+
+        public void moveFiles(Page4 loaderPage)
+        {
+            string sourceDir = System.IO.Path.Combine(workingDirectory, "Files");
+
+            // create target directory
+            // System.IO.Directory.CreateDirectory(installDirectory);
+
+            // get source directory files
+            string[] files = System.IO.Directory.GetFiles(sourceDir, "*.*", SearchOption.AllDirectories);
+
+            // loop through files
+            for (int i = 0; i < files.Length; i++)
+            {
+                // copy file
+                // System.IO.File.Copy(sourceDir, destFile, false);
+
+                // update loaderPage status
+                loaderPage.setStatus(i, files.Length);
+            }
+
+            // move to next page
         }
 
         public void setInstallDir(string newDir)
@@ -48,6 +77,7 @@ namespace dotnet_installer_example
             currentPage -= 1;
             updateView();
         }
+
         private void Button_Forward_Click(object sender, RoutedEventArgs e)
         {
             currentPage += 1;
@@ -73,7 +103,7 @@ namespace dotnet_installer_example
                 ForwardButton.Content = "Quit";
             }
 
-            // set page
+            // set page and perform action specific for that page
             if (currentPage == 1)
             {
                 Main.Content = new Page1();
@@ -86,7 +116,9 @@ namespace dotnet_installer_example
             }
             else if (currentPage == 4)
             {
-                Main.Content = new Page4();
+                Page4 loaderPage = new Page4();
+                Main.Content = loaderPage;
+                moveFiles(loaderPage);
             }
             else if (currentPage == 5)
             {

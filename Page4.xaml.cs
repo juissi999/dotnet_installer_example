@@ -22,5 +22,10 @@ namespace dotnet_installer_example
         {
             InitializeComponent();
         }
+
+        public void setStatus(int currentFile, int fileCount)
+        {
+            statusText.Text = (currentFile+1).ToString() + "/" + fileCount.ToString();
+        }
     }
 }
