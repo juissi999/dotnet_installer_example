@@ -18,9 +18,17 @@ namespace dotnet_installer_example
     /// </summary>
     public partial class Page2 : Page
     {
-        public Page2()
+        MainWindow mW;
+        public Page2(MainWindow parent)
         {
+            mW = parent;
             InitializeComponent();
+            installDirTextBox.Text = mW.getInstallDir();
+        }
+
+        private void installDirTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            mW.setInstallDir(installDirTextBox.Text);
         }
     }
 }
