@@ -22,13 +22,25 @@ namespace dotnet_installer_example
     public partial class MainWindow : Window
     {
         int currentPage;
+        string installDirectory;
 
         public MainWindow()
         {
             // set private variable for page
             currentPage = 0;
+            setInstallDir(System.IO.Directory.GetCurrentDirectory());
             InitializeComponent();
             updateView();
+        }
+
+        public void setInstallDir(string newDir)
+        {
+            installDirectory = newDir;
+        }
+
+        public string getInstallDir()
+        {
+            return installDirectory;
         }
 
         private void Button_Back_Click(object sender, RoutedEventArgs e)
@@ -60,7 +72,7 @@ namespace dotnet_installer_example
                 Main.Content = new Page1();
             } else if (currentPage == 1)
             {
-                Main.Content = new Page2();
+                Main.Content = new Page2(this);
             }
         }
 
