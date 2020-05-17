@@ -18,19 +18,12 @@ namespace dotnet_installer_example
     /// </summary>
     public partial class Page4 : Page
     {
-        public Page4()
+        public Page4(double lbMax, string fname, int fileind, int filecount)
         {
             InitializeComponent();
-        }
-
-        public void setCopiedFilename(string fname)
-        {
-            statusText.Text = "Copying file " + fname + "...";
-        }
-
-        public void setStatus(int currentFile, int fileCount)
-        {
-            //statusText.Text = (currentFile+1).ToString() + "/" + fileCount.ToString();
+            statusText.Text = "Copying " + fname;
+            loadBar.Width = (float)fileind / (float)filecount * lbMax;
+            loadBar2.Width = lbMax;
         }
     }
 }

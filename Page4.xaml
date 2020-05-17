@@ -8,7 +8,11 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Page4">
 
-    <Grid>
-        <TextBlock x:Name="statusText" Text="aaa" HorizontalAlignment="Center" VerticalAlignment="Center" />
-    </Grid>
+    <StackPanel VerticalAlignment="Center" >
+        <TextBlock x:Name="statusText" Text="" HorizontalAlignment="Left"/>
+        <Grid>
+        <Rectangle x:Name="loadBar2" Width="300" Height="20" Fill="LightGreen" HorizontalAlignment="Left"/>
+        <Rectangle x:Name="loadBar" Width="100" Height="20" Fill="Green" HorizontalAlignment="Left"/>
+        </Grid>
+    </StackPanel>
 </Page>

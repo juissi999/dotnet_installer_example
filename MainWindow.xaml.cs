@@ -27,16 +27,16 @@ namespace dotnet_installer_example
         string installDirectory;
         string sourceDirectory;
         string workingDirectory;
-        Page4 loaderStatusPage;
 
         // file transfer variables
         string[] files;
+        int fileToTransfer;
 
         public MainWindow()
         {
             // set private variable for page
             currentPage = 1;
-
+  
             // resolve the program-files location
             workingDirectory = System.IO.Directory.GetCurrentDirectory();
 
@@ -47,39 +47,41 @@ namespace dotnet_installer_example
             files = System.IO.Directory.GetFiles(sourceDirectory, "*.*",
                 SearchOption.AllDirectories);
 
+            // initialize file transfer iterator (only can install once)
+            fileToTransfer = 0;
+
             setInstallDir(workingDirectory);
             InitializeComponent();
             updateView();
         }
 
-
-        public void moveFiles(Page4 loaderPage)
+        public void transferNextFile()
         {
-            // loop through files
-            for (int i = 0; i < files.Length; i++)
+            if (fileToTransfer == files.Length-1)
             {
-                // define relative path of the file in source directory
-                // (take away the beginning of path)
-                string relativeFilePath = files[i].Substring(sourceDirectory.Length + 1);
-
-                // create path to the destination file
-                string destinationFile = System.IO.Path.Combine(installDirectory,
-                    relativeFilePath);
-
-                // create the directory/subdirectory, or if it exists, do nothing
-                (new FileInfo(destinationFile)).Directory.Create();
-
-                // copy one file
-                System.IO.File.Copy(files[i], destinationFile, false);
-
-                // update loaderPage status
-                loaderPage.setStatus(i, files.Length);
-                loaderPage.setCopiedFilename(destinationFile);
+                // break condition
+                // move to next page
+                currentPage += 1;
+                updateView();
             }
 
-            // move to next page
-            currentPage += 1;
+            // define relative path of the file in source directory
+            // (take away the beginning of path)
+            string relativeFilePath = files[fileToTransfer].Substring(sourceDirectory.Length + 1);
+
+            // create path to the destination file
+            string destinationFile = System.IO.Path.Combine(installDirectory,
+                    relativeFilePath);
+
+            // create the directory/subdirectory, or if it exists, do nothing
+            (new FileInfo(destinationFile)).Directory.Create();
+
+            // copy one file
+            System.IO.File.Copy(files[fileToTransfer], destinationFile, false);
+
+            // update loaderPage status
             updateView();
+            fileToTransfer += 1;
         }
 
         public void setInstallDir(string newDir)
@@ -122,6 +124,14 @@ namespace dotnet_installer_example
             {
                 ForwardButton.Content = "Quit";
             }
+            // forwardButton, set invisible during file-transfer
+            if (currentPage == 4)
+            {
+                ForwardButton.Visibility = Visibility.Hidden;
+            } else
+            {
+                ForwardButton.Visibility = Visibility.Visible;
+            }
 
             // set page and perform action specific for that page
             if (currentPage == 1)
@@ -136,8 +146,8 @@ namespace dotnet_installer_example
             }
             else if (currentPage == 4)
             {
-                loaderStatusPage = new Page4();
-                Main.Content = loaderStatusPage;
+                //loaderStatusPage = new Page4(files[fileToTransfer]);
+                Main.Content = new Page4(this.Width, files[fileToTransfer], fileToTransfer, files.Length);
             }
             else if (currentPage == 5)
             {
@@ -152,10 +162,12 @@ namespace dotnet_installer_example
 
         private void Main_ContentRendered(object sender, EventArgs e)
         {
-            //MessageBox.Show("ContentRendered");
+            // Track the status of when window has rendered, then proceed
+            // to next file. Otherwise window does not have time to catch up.
+            // This function is only relevant on Page4 during file transfer.
             if (currentPage == 4)
             {
-                moveFiles(loaderStatusPage);
+                transferNextFile();
             }
         }
     }
