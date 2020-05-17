@@ -25,15 +25,27 @@ namespace dotnet_installer_example
     {
         int currentPage;
         string installDirectory;
+        string sourceDirectory;
         string workingDirectory;
         Page4 loaderStatusPage;
+
+        // file transfer variables
+        string[] files;
 
         public MainWindow()
         {
             // set private variable for page
             currentPage = 1;
 
+            // resolve the program-files location
             workingDirectory = System.IO.Directory.GetCurrentDirectory();
+
+            // resolve the path to source directory
+            sourceDirectory = System.IO.Path.Combine(workingDirectory, "Files");
+
+            // resolve all files that should be transfered
+            files = System.IO.Directory.GetFiles(sourceDirectory, "*.*",
+                SearchOption.AllDirectories);
 
             setInstallDir(workingDirectory);
             InitializeComponent();
@@ -43,19 +55,12 @@ namespace dotnet_installer_example
 
         public void moveFiles(Page4 loaderPage)
         {
-            // resolve the path to source directory
-            string sourceDir = System.IO.Path.Combine(workingDirectory, "Files");
-
-            // get source directory files
-            string[] files = System.IO.Directory.GetFiles(sourceDir, "*.*",
-                SearchOption.AllDirectories);
-
             // loop through files
             for (int i = 0; i < files.Length; i++)
             {
                 // define relative path of the file in source directory
                 // (take away the beginning of path)
-                string relativeFilePath = files[i].Substring(sourceDir.Length + 1);
+                string relativeFilePath = files[i].Substring(sourceDirectory.Length + 1);
 
                 // create path to the destination file
                 string destinationFile = System.IO.Path.Combine(installDirectory,
@@ -127,7 +132,7 @@ namespace dotnet_installer_example
                 Main.Content = new Page2(this);
             } else if (currentPage == 3)
             {
-                Main.Content = new Page3(this.getInstallDir());
+                Main.Content = new Page3(this.getInstallDir(), files.Length);
             }
             else if (currentPage == 4)
             {

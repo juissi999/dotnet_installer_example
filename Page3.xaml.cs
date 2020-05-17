@@ -18,10 +18,12 @@ namespace dotnet_installer_example
     /// </summary>
     public partial class Page3 : Page
     {
-        public Page3(string installDir)
+        public Page3(string installDir, int fileCount)
         {
             InitializeComponent();
-            installQueryTxt.Text = "Target directory:\n" + installDir + "\n\nClick Forward to start install.";
+            installQueryTxt.Text = "Install " + fileCount.ToString() +
+                " files to\n" + installDir + "?" +
+                "\n\nClick Forward to start install.";
         }
     }
 }
