@@ -55,14 +55,25 @@ namespace dotnet_installer_example
             updateView();
         }
 
+        private void nextPage()
+        {
+            currentPage += 1;
+            updateView();
+        }
+
+        private void previousPage()
+        {
+            currentPage -= 1;
+            updateView();
+        }
+
         public void transferNextFile()
         {
             if (fileToTransfer == files.Length-1)
             {
                 // break condition
                 // move to next page
-                currentPage += 1;
-                updateView();
+                nextPage();
             }
 
             // define relative path of the file in source directory
@@ -96,14 +107,12 @@ namespace dotnet_installer_example
 
         private void Button_Back_Click(object sender, RoutedEventArgs e)
         {
-            currentPage -= 1;
-            updateView();
+            previousPage();
         }
 
         private void Button_Forward_Click(object sender, RoutedEventArgs e)
         {
-            currentPage += 1;
-            updateView();
+            nextPage();
         }
 
         private void updateView()
@@ -146,13 +155,19 @@ namespace dotnet_installer_example
             }
             else if (currentPage == 4)
             {
-                //loaderStatusPage = new Page4(files[fileToTransfer]);
-                Main.Content = new Page4(this.Width, files[fileToTransfer], fileToTransfer, files.Length);
+                if (files.Length > 0)
+                {
+                    Main.Content = new Page4(this.Width, files[fileToTransfer], fileToTransfer, files.Length);
+                } else
+                {
+                    // if there was no files to transfer
+                    nextPage();
+                }
             }
             else if (currentPage == 5)
             {
                 Main.Content = new Page5();
-            } 
+            }
             else if (currentPage == 6)
             {
                 // when user presses the button on the last page, close application
