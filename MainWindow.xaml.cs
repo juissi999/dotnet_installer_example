@@ -1,20 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace dotnet_installer_example
 {
@@ -40,7 +26,7 @@ namespace dotnet_installer_example
 
             // resolve the path to source directory
             sourceDirectory =
-                System.IO.Path.Combine(workingDirectory, "Files");
+                System.IO.Path.Combine(workingDirectory, "files");
 
             // resolve all files that should be transfered
             files = System.IO.Directory.GetFiles(sourceDirectory, "*.*",
