@@ -9,11 +9,14 @@
       Title="Page2">
 
     <Grid>
-        <TextBlock Text="Select installation folder:" VerticalAlignment="Top" />
+        <TextBlock Text="Select or type installation path:" VerticalAlignment="Top" />
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="left" Orientation="Vertical" Margin="0 30 0 0">
             <TextBox x:Name="installDirTextBox"  Width="500"  Height="25" Margin="5 0 10 0" TextChanged="installDirTextBox_TextChanged"/>
             <ListBox x:Name="fileTreeListBox" Height="200" Margin="5 15 10 0" MouseDoubleClick="fileTreeListBox_MouseDoubleClick" />
-            <ComboBox x:Name="driveSelector" HorizontalAlignment="left" Width="200" Height="25" SelectionChanged="driveSelector_SelectionChanged" Margin="5 15 10 0"/>
+            <StackPanel Orientation="Horizontal" Margin="5 15 10 0">
+                <TextBlock Width="30" Text="Drive: " Height="25" Margin="0 0 10 0"/>
+                <ComboBox x:Name="driveSelector" HorizontalAlignment="left" Width="100" Height="25" SelectionChanged="driveSelector_SelectionChanged"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>
