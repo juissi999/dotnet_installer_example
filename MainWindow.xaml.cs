@@ -23,10 +23,10 @@ namespace dotnet_installer_example
     /// </summary>
     public partial class MainWindow : Window
     {
+        // "model" variables, keep track of programs state
         int currentPage;
         string installDirectory;
         string sourceDirectory;
-        string workingDirectory;
 
         // file transfer variables
         string[] files;
@@ -34,14 +34,13 @@ namespace dotnet_installer_example
 
         public MainWindow()
         {
-            // set private variable for page
-            currentPage = 1;
-  
             // resolve the program-files location
-            workingDirectory = System.IO.Directory.GetCurrentDirectory();
+            string workingDirectory =
+                System.IO.Directory.GetCurrentDirectory();
 
             // resolve the path to source directory
-            sourceDirectory = System.IO.Path.Combine(workingDirectory, "Files");
+            sourceDirectory =
+                System.IO.Path.Combine(workingDirectory, "Files");
 
             // resolve all files that should be transfered
             files = System.IO.Directory.GetFiles(sourceDirectory, "*.*",
@@ -50,9 +49,11 @@ namespace dotnet_installer_example
             // initialize file transfer iterator (only can install once)
             fileToTransfer = 0;
 
-            setInstallDir(workingDirectory);
             InitializeComponent();
-            updateView();
+
+            // update view by proceeding to first page
+            currentPage = 0;
+            nextPage();
         }
 
         private void nextPage()
@@ -78,7 +79,8 @@ namespace dotnet_installer_example
 
             // define relative path of the file in source directory
             // (take away the beginning of path)
-            string relativeFilePath = files[fileToTransfer].Substring(sourceDirectory.Length + 1);
+            string relativeFilePath =
+                files[fileToTransfer].Substring(sourceDirectory.Length + 1);
 
             // create path to the destination file
             string destinationFile = System.IO.Path.Combine(installDirectory,
@@ -117,7 +119,7 @@ namespace dotnet_installer_example
 
         private void updateView()
         {
-            // update navigation controls
+            // update navigation controls & view
 
             // backButton, dont display on some pages
             if (currentPage == 1 || currentPage > 3)
@@ -133,6 +135,7 @@ namespace dotnet_installer_example
             {
                 ForwardButton.Content = "Quit";
             }
+
             // forwardButton, set invisible during file-transfer
             if (currentPage == 4)
             {
@@ -155,9 +158,13 @@ namespace dotnet_installer_example
             }
             else if (currentPage == 4)
             {
+                // while installation is going, make instances of Page4
+                // to show installation progress and to evoke contentRendered
+                // callback
                 if (files.Length > 0)
                 {
-                    Main.Content = new Page4(this.Width, files[fileToTransfer], fileToTransfer, files.Length);
+                    Main.Content = new Page4(this.Width, files[fileToTransfer],
+                        fileToTransfer, files.Length);
                 } else
                 {
                     // if there was no files to transfer
@@ -170,7 +177,8 @@ namespace dotnet_installer_example
             }
             else if (currentPage == 6)
             {
-                // when user presses the button on the last page, close application
+                // when user presses the button on the last page, close
+                // application
                 this.Close();
             }
         }
